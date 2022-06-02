@@ -54,7 +54,7 @@ button:hover, a:hover {
 <h2 style="text-align:center">Add New Teacher Profile</h2>
 
 <div class="card">
-   <form action="{%url 'AddTeacherData'%}" method="POST"  style="width:100%">
+   <form action="{%url 'AddTeacherData'%}" method="POST"  style="width:100%" enctype="multipart/form-data">
        {%csrf_token%}
   <div class="form_top_row">
     <h4>First Name: <span class="text-primary"><input type="text" name="firstName" required></span></h4>
@@ -79,6 +79,8 @@ button:hover, a:hover {
     </div>
    
   </div>
+
+  <input type="file" name="myfile">
  
   <p><button>Add Profile</button></p>
    </form>

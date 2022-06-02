@@ -87,7 +87,7 @@ from django.core.files.storage import FileSystemStorage
 
 def importbulkfile(request):
     if request.method == 'POST':
-        print(request.FILES)
+      
         myfile = request.FILES['myfile']
         fs = FileSystemStorage()
         filename = fs.save(myfile.name, myfile)
@@ -163,6 +163,17 @@ def AddTeacherData(request):
     if request.method == 'GET':
         return render(request, 'AddTeacherData.html', {})
     if request.method == 'POST':
+        filename = ""
+        try:
+            myfile = request.FILES['myfile']
+            fs = FileSystemStorage("media/profilepic")
+            filename = fs.save(myfile.name, myfile)
+        except:
+            filename= "default.jpg"
+        
+        
+        
+
         firstName = request.POST.get('firstName')
         lastName = request.POST.get('lastName')
         email = request.POST.get('email')
@@ -172,7 +183,7 @@ def AddTeacherData(request):
         sub = subjects.split(',')
         sub = len(sub)
         if sub <= 5:
-            TeacherModel.objects.create(FirstName=firstName, LastName=lastName, Profilepicture='default.jpg',
+            TeacherModel.objects.create(FirstName=firstName, LastName=lastName, Profilepicture=filename,
                                         EmailAddress=email, PhoneNumber=mobile, RoomNumber=roomnumber,
                                         Subjectstaught=subjects)
         else:
