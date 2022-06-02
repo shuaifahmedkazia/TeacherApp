@@ -6,7 +6,7 @@
   <h1>Import the data</h1>
   <form action="{%url 'importbulkfile'%}" method="POST" enctype="multipart/form-data">
     {%csrf_token%}
-    <input type="file" name="myfile">
+    <input type="file" name="myfile" required>
     <button type="submit" class="btn btn-primary">Import file</button>
   </form>
 

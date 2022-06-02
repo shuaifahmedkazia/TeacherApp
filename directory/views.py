@@ -85,6 +85,7 @@ def importBulk(request):
 
 from django.core.files.storage import FileSystemStorage
 
+
 def importbulkfile(request):
     if request.method == 'POST':
       
@@ -128,7 +129,7 @@ def importbulkfile(request):
         messages.success(request, str(data_added)+' Data Imported')
     return render(request, 'importerform.html', {})
 
-
+@login_required(login_url='/Login/')
 def DataView(request):
     if request.method == 'GET':
         qs = TeacherModel.objects.all()
@@ -139,7 +140,7 @@ def DataView(request):
         data = TeacherModel.objects.filter(Q(LastName__icontains=filtertxt) | Q(Subjectstaught__icontains=filtertxt))
         return render(request, 'AllData.html', {'data': data})
 
-
+@login_required(login_url='/Login/')
 def TeacherDirectoryForm(request):
     return render(request, 'FilterForm.html', {})
 
@@ -151,14 +152,14 @@ def FilterTeacherProfile(request):
         data = TeacherModel.objects.filter(Q(LastName__icontains=filtertxt) | Q(Subjectstaught__icontains=filtertxt))
         return render(request, 'FilterForm.html', {'data': data})
 
-
+@login_required(login_url='/Login/')
 def GetProfilePage(request):
     if request.method == 'GET':
         id = int(request.GET.get('uid'))
         data = TeacherModel.objects.get(id=id)
         return render(request, 'ProfilePage.html', {'data': data})
 
-
+@login_required(login_url='/Login/')
 def AddTeacherData(request):
     if request.method == 'GET':
         return render(request, 'AddTeacherData.html', {})
