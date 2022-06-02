@@ -183,10 +183,14 @@ def AddTeacherData(request):
         sub = subjects.split(',')
         sub = len(sub)
         if sub <= 5:
-            TeacherModel.objects.create(FirstName=firstName, LastName=lastName, Profilepicture=filename,
-                                        EmailAddress=email, PhoneNumber=mobile, RoomNumber=roomnumber,
-                                        Subjectstaught=subjects)
+            try:
+                TeacherModel.objects.create(FirstName=firstName, LastName=lastName, Profilepicture=filename,
+                                            EmailAddress=email, PhoneNumber=mobile, RoomNumber=roomnumber,
+                                            Subjectstaught=subjects)
+            except Exception as e:
+                messages.error(request, str(e))
         else:
             messages.error(request, 'subjectcannot contain more than 5')
+            
         qs = TeacherModel.objects.all()
         return render(request, 'AllData.html', {'data': qs,'class':'alert-danger'})
