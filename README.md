@@ -1,5 +1,5 @@
 
-# Project Title
+# Teacher Directory App
 A Directory app for all the Teachers in a given school.
 
 
