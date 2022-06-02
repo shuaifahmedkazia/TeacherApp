@@ -83,6 +83,52 @@ def importBulk(request):
     return render(request, 'importerform.html', {})
 
 
+from django.core.files.storage import FileSystemStorage
+
+def importbulkfile(request):
+    if request.method == 'POST':
+        print(request.FILES)
+        myfile = request.FILES['myfile']
+        fs = FileSystemStorage()
+        filename = fs.save(myfile.name, myfile)
+
+        
+    
+        path = settings.MEDIA_ROOT + "\\" + filename
+
+        import pandas as pd
+        df = pd.read_csv(path, encoding='utf-8')
+        li = checkData()
+        data_added = 0
+        for i in df.index:
+            FirstName = df['First Name'][i]
+            LastName = df['Last Name'][i]
+            Profilepicture = df['Profile picture'][i]
+            EmailAddress = df['Email Address'][i]
+            PhoneNumber = df['Phone Number'][i]
+            RoomNumber = df['Room Number'][i]
+            Subjectstaught = df['Subjects taught'][i]
+
+            pic = 'default.jpg'
+            if Profilepicture not in li:
+                Profilepicture = pic
+
+            # l2 = len(FirstName)
+            sub = Subjectstaught.split(',')
+            sub = len(sub)
+            if sub <= 5:
+                try:
+                    TeacherModel.objects.create(FirstName=FirstName, LastName=LastName, Profilepicture=Profilepicture,
+                                                EmailAddress=EmailAddress, PhoneNumber=PhoneNumber, RoomNumber=RoomNumber,
+                                                Subjectstaught=Subjectstaught)
+                    data_added +=1
+                except:
+                    pass
+
+        messages.success(request, str(data_added)+' Data Imported')
+    return render(request, 'importerform.html', {})
+
+
 def DataView(request):
     if request.method == 'GET':
         qs = TeacherModel.objects.all()

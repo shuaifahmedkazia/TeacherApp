@@ -30,6 +30,7 @@ urlpatterns = [
     path('apphome/',dt.apphome, name='apphome'),
     path('importedForm/', dt.importedForm, name='importedForm'),
     path('importBulk/',dt.importBulk, name='importBulk'),
+    path('importbulkfile/',dt.importbulkfile, name='importbulkfile'),
     path('DataView/', dt.DataView, name='DataView'),
     path('TeacherDirectoryForm/',dt.TeacherDirectoryForm, name='TeacherDirectoryForm'),
     path('FilterTeacherProfile/',dt.FilterTeacherProfile, name='FilterTeacherProfile'),
