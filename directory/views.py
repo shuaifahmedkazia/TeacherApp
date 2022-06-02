@@ -11,10 +11,8 @@ def Login(request):
         loginid = request.POST.get('username')
         pswd = request.POST.get('password')
         try:
-            # check = LoginTable.objects.get(username=loginid, password=pswd)
             user = authenticate(request, username=loginid, password=pswd)
-            # request.session['username'] = check.username
-            # if check.username != None or check.username != '':
+            
             if user is not None: 
                 login(request, user)
                 qs = TeacherModel.objects.all()
@@ -40,11 +38,11 @@ def importedForm(request):
 
 
 def checkData():
-    # plen = len(Profilepicture)
+
     import os
-    # pic = 'default.JPG'
+ 
     li = []
-    # dir_file = os.listdir()
+ 
     for x in os.listdir(settings.MEDIA_ROOT + "\\" + "profilepic"):
         if x.endswith(".JPG") or x.endswith(".jpg"):
             li.append(x)
