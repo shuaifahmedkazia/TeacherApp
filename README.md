@@ -46,7 +46,7 @@ Start the server
   python manage.py runserver
 ```
 
-Start the open Browser and visit 
+open Browser and visit 
 
 ```bash
 http://127.0.0.1:8000/
